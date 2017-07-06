@@ -1,0 +1,9 @@
+#!/usr/bin/env ruby
+
+require "markdown_formatter"
+
+filepath = ARGV.first
+
+raise "filepath not found" if filepath.nil?
+
+MarkdownFormatter::CLI.run(filepath.chomp)
