@@ -93,6 +93,7 @@ RSpec.describe MarkdownFormatter do
       expect(MarkdownFormatter.format(text)).to eq(expect)
     end
 
+    # FIXME: kramdown parser bag
     xit "ignore block quote ends after the first line" do
       text, expect =<<~'TEXT', <<~'EXPECT'
         > - foo

@@ -1,9 +1,27 @@
 #!/usr/bin/env ruby
 
 require "markdown_formatter"
+require "optparse"
+
+options = {}
+
+opt_parse = OptionParser.new do |opt|
+  opt.banner = 'Usage: mdfmt [options] markdownfile'
+  opt.on('-w', '--overwrite', 'overwrite file instead of stdout') { options[:overwrite] = true }
+  opt.on('-v', '--version', 'display the version.') { options[:version] = true }
+  opt.parse!(ARGV)
+end
 
 filepath = ARGV.first
 
-raise "filepath not found" if filepath.nil?
+MarkdownFormatter::OPTIONS.merge!(options)
 
-MarkdownFormatter::CLI.run(filepath.chomp)
+case
+  when options[:version]
+    puts "MarkdownFormatter version: #{MarkdownFormatter::VERSION}"
+  when filepath.nil?
+    puts opt_parse
+  else
+    MarkdownFormatter::CLI.run(filepath.chomp)
+end
+

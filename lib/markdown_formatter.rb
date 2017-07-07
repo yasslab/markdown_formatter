@@ -49,6 +49,8 @@ require "monkey_patches/kramdown/utils/entities"
 require "monkey_patches/kramdown/parser/gfm"
 
 module MarkdownFormatter
+  OPTIONS = {}
+
   def self.format(source)
     AST.new(source).to_s
   end
