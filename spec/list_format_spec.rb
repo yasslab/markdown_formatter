@@ -43,6 +43,18 @@ RSpec.describe MarkdownFormatter do
         expect(MarkdownFormatter.format(text)).to eq(expect)
       end
 
+      it "nested list indent 4 space" do
+        text, expect =<<~'TEXT', <<~'EXPECT'
+          * text
+              * foo
+        TEXT
+          * text
+              * foo
+        EXPECT
+
+        expect(MarkdownFormatter.format(text)).to eq(expect)
+      end
+
       # FIXME: kramdown parser bug
       xit "[edge case] multiple list item with codeblock" do
         text, expect =<<~'TEXT', <<~'EXPECT'
@@ -139,6 +151,70 @@ RSpec.describe MarkdownFormatter do
               sample code
 
           * bar
+        EXPECT
+
+        expect(MarkdownFormatter.format(text)).to eq(expect)
+      end
+
+      it "list item with multi codeblock" do
+        text, expect =<<~'TEXT', <<~'EXPECT'
+        * methods
+
+            ```ruby
+            def say
+              "hello"
+            end
+            ```
+
+            ..can now be written as
+
+            ```ruby
+            def say
+              'hello'
+            end
+            ```
+        TEXT
+        * methods
+
+            ```ruby
+            def say
+              "hello"
+            end
+            ```
+
+            ..can now be written as
+
+            ```ruby
+            def say
+              'hello'
+            end
+            ```
+        EXPECT
+
+        expect(MarkdownFormatter.format(text)).to eq(expect)
+      end
+
+      it "list item with codeblock include breakline" do
+        text, expect =<<~'TEXT', <<~'EXPECT'
+        * stdout
+
+            ```ruby
+            puts "hello"
+
+            puts "world"
+            ```
+
+            In the example
+        TEXT
+        * stdout
+
+            ```ruby
+            puts "hello"
+
+            puts "world"
+            ```
+
+            In the example
         EXPECT
 
         expect(MarkdownFormatter.format(text)).to eq(expect)

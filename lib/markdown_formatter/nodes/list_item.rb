@@ -8,18 +8,24 @@ module MarkdownFormatter
 
       def to_s
         /^(?<prefix>\s*([0-9]+\.|[-+*])\s*)/ =~ node.dig(:options, :raw_text)
-        indents = node.dig(:options, :raw_text).split(/\R/).map do |line|
+        indents = node.dig(:options, :raw_text).lstrip.split(/\R/).map do |line|
           line.match(/^\s+/).to_s
         end
 
         (" " * @nest_level * 2) + prefix + node[:children].map { |c|
+          if c[:type] != :blank
+            indent, * = indents.shift(c.dig(:options, :raw_text).scan(/\R/).size)
+          else
+            indents.shift(c[:value].scan(/\R/).size)
+          end
+
           case c[:type]
             when :p
-              indents.shift + Paragraph.new(c).to_s.gsub(/\R/, " ").split.join(" ")
+              indent + Paragraph.new(c).to_s.gsub(/\R/, " ").split.join(" ")
             when :blank
               ""
             when :codeblock
-              CodeBlock.new(c).to_s.indent(indents.shift.size)
+              CodeBlock.new(c).to_s.indent(indent.size)
             when :ul
               List.new(c, @nest_level + 1).to_s.chomp
             else

@@ -19,7 +19,7 @@ module Kramdown
             eob_found = true
             break
           elsif @src.scan(list_start_re)
-            item = Element.new(:li, nil, nil, :location => start_line_number, :raw_text => @src[0])
+            item = Element.new(:li, nil, nil, :location => start_line_number, :raw_text => @src.matched.dup)
             list.options[:raw_text] += @src[0]
             item.value, indentation, content_re, lazy_re, indent_re = parse_first_list_line(@src[1].length, @src[2])
             list.children << item
@@ -50,6 +50,7 @@ module Kramdown
           elsif result = @src.scan(BLANK_LINE)
             nested_list_found = true
             last_is_blank = true
+            item.options[:raw_text] += @src.matched
             list.options[:raw_text] += @src.matched
 
             if list.children.last.type != :blank
@@ -64,7 +65,7 @@ module Kramdown
           end
         end
 
-        list.options[:raw_text].gsub!(/\R{2}\z/, "\n")
+        list.options[:raw_text].gsub!(/\R{2,}\z/, "\n")
         list.children.pop if list.children.last.type == :blank
         @tree.children << list
 

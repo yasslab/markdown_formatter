@@ -30,6 +30,24 @@ RSpec.describe MarkdownFormatter do
       expect(MarkdownFormatter.format(text)).to eq(expect)
     end
 
+    it "header with list" do
+      text, expect =<<~'TEXT', <<~'EXPECT'
+        * foo
+        * bar
+
+
+        # h1
+      TEXT
+        * foo
+        * bar
+
+
+        # h1
+      EXPECT
+
+      expect(MarkdownFormatter.format(text)).to eq(expect)
+    end
+
     # FIXME: this header pattern unsupported (kramdown)
     xit "under lien header (double text)" do
       text, expect =<<~'TEXT', <<~'EXPECT'
