@@ -71,6 +71,17 @@ RSpec.describe MarkdownFormatter do
 
       expect(MarkdownFormatter.format(text)).to eq(expect)
     end
+
+    it "text with link" do
+      text, expect =<<~'TEXT', <<~'EXPECT'
+        sample url is
+        <http://localhost:3000/articles/new>
+      TEXT
+        sample url is <http://localhost:3000/articles/new>
+      EXPECT
+
+      expect(MarkdownFormatter.format(text)).to eq(expect)
+    end
   end
 
   describe "typographic sym" do
