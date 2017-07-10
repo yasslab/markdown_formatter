@@ -219,6 +219,26 @@ RSpec.describe MarkdownFormatter do
 
         expect(MarkdownFormatter.format(text)).to eq(expect)
       end
+
+      it "nested list item with codeblock" do
+        text, expect =<<~'TEXT', <<~'EXPECT'
+        * foo
+          * bar
+
+            ```ruby
+            puts "hello"
+            ```
+        TEXT
+        * foo
+          * bar
+
+            ```ruby
+            puts "hello"
+            ```
+        EXPECT
+
+        expect(MarkdownFormatter.format(text)).to eq(expect)
+      end
     end
 
     describe "Ordered list" do

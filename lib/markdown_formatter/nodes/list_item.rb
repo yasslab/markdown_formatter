@@ -12,7 +12,7 @@ module MarkdownFormatter
           line.match(/^\s+/).to_s
         end
 
-        (" " * @nest_level * 2) + prefix + node[:children].map { |c|
+        (prefix + node[:children].map { |c|
           if c[:type] != :blank
             indent, * = indents.shift(c.dig(:options, :raw_text).scan(/\R/).size)
           else
@@ -31,7 +31,7 @@ module MarkdownFormatter
             else
               raise "Unexpected type #{c[:type]}"
           end
-        }.join("\n")
+        }.join("\n")).indent(@nest_level.zero? ? 0 : 2)
       end
     end
   end
