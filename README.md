@@ -22,7 +22,11 @@ Or install it yourself as:
 
 ## Usage
 
-TODO: Write usage instructions here
+```
+Usage: mdfmt [options] filepath
+    -w, --overwrite                  overwrite file instead of stdout
+    -v, --version                    display the version.
+```
 
 ## Development
 
