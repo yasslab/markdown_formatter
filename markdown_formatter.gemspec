@@ -9,8 +9,7 @@ Gem::Specification.new do |spec|
   spec.authors       = ["siman-man"]
   spec.email         = ["k128585@ie.u-ryukyu.ac.jp"]
 
-  spec.summary       = %q{markdown formatter}
-  spec.description   = %q{markdown formatter}
+  spec.summary       = %q{Markdown formatter that removes unnecessary newlines, written in Ruby.}
   spec.homepage      = "https://github.com/yasslab/markdown_formatter"
   spec.license       = "MIT"
 
