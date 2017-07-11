@@ -71,6 +71,8 @@ module Kramdown
         if @src.scan(/\(<(.*?)>/)
           link_url = @src[1]
           if @src.scan(/\)/)
+            raw_text += "(<#{link_url}>)"
+            el.options[:raw_text] = raw_text
             add_link(el, link_url, nil, alt_text)
             return
           end

@@ -21,7 +21,7 @@ RSpec.describe MarkdownFormatter do
     end
 
     # FIXME: Do pass this spec.
-    xit "link with empty name" do
+    it "link with empty name" do
       text, expect =<<~'TEXT', <<~'EXPECT'
         [link]()
 
