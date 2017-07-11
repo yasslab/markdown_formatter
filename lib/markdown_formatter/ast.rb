@@ -4,7 +4,6 @@ module MarkdownFormatter
       @source = source.dup
       doc = Kramdown::Document.new(source.dup, input: "GFM")
       @ast, @warnings = doc.to_hash_ast
-      # pp @ast
     end
 
     def traverse(parent = [@ast])

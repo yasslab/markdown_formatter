@@ -18,7 +18,7 @@ module MarkdownFormatter
           when :entity
             Entity.new(c).to_s
           when :footnote
-            str += Footnote.new(c).to_s
+            Footnote.new(c).to_s
           else
             pp c
             raise "Unexpected type `#{c[:type]}'"
