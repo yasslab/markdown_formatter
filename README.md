@@ -1,6 +1,7 @@
 # MarkdownFormatter
 
 Markdown formatter that removes unnecessary newlines, written in Ruby.
+This polishes segments for making [Translation Memory](https://en.wikipedia.org/wiki/Translation_memory) more maintainable.
 
 ## Installation
 
