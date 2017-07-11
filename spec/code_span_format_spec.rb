@@ -10,6 +10,17 @@ RSpec.describe MarkdownFormatter do
       expect(MarkdownFormatter.format(text)).to eq(expect)
     end
 
+    it "Line breaks replace with whiete space" do
+      text, expect =<<~'TEXT', <<~'EXPECT'
+        `code
+        span`
+      TEXT
+        `code span`
+      EXPECT
+
+      expect(MarkdownFormatter.format(text)).to eq(expect)
+    end
+
     it "example 322" do
       text, expect =<<~'TEXT', <<~'EXPECT'
         `` foo ` bar  ``
@@ -36,7 +47,7 @@ RSpec.describe MarkdownFormatter do
         foo
         ``
       TEXT
-        ``foo``
+        `` foo ``
       EXPECT
 
       expect(MarkdownFormatter.format(text)).to eq(expect)
